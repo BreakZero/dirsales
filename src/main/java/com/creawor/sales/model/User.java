@@ -47,7 +47,7 @@ public class User implements Serializable {
    * 密码
    */
   @Column(name = "PWD", length = 50)
-  private String pwd;
+  private String password;
 
   /**
    * 昵称
@@ -105,13 +105,12 @@ public class User implements Serializable {
   private String managerNumber;
 
 
-
-  public String getPwd() {
-    return pwd;
+  public String getPassword() {
+    return password;
   }
 
-  public void setPwd(String pwd) {
-    this.pwd = pwd;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public String getNickname() {

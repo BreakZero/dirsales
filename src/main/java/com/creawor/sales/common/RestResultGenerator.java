@@ -12,15 +12,15 @@ public class RestResultGenerator {
 
   /**
    * normal
-   * @param success
+   * @param code
    * @param data
    * @param message
    * @param <T>
    * @return
    */
-  public static <T> RestResult<T> genResult(boolean success, T data, String message) {
+  public static <T> RestResult<T> genResult(int code, T data, String message) {
     RestResult<T> result = RestResult.newInstance();
-    result.setResult(success);
+    result.setCode(code);
     result.setData(data);
     result.setMessage(message);
     if (LOGGER.isDebugEnabled()) {
@@ -37,7 +37,7 @@ public class RestResultGenerator {
    */
   public static <T> RestResult<T> genSuccessResult(T data) {
 
-    return genResult(true, data, null);
+    return genResult(Const.SUCCESS_CODE, data, null);
   }
 
   /**
@@ -48,7 +48,7 @@ public class RestResultGenerator {
    */
   public static <T> RestResult<T> genErrorResult(String message) {
 
-    return genResult(false, null, message);
+    return genResult(Const.FAIL_CODE, null, message);
   }
 
   /**

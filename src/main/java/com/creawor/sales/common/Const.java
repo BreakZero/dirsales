@@ -6,4 +6,7 @@ package com.creawor.sales.common;
  */
 public class Const {
     public static final String DB_CATALOG = "foss"; // 配置数据库前缀
+
+    public static final int SUCCESS_CODE = 0;
+    public static final int FAIL_CODE = 1;
 }

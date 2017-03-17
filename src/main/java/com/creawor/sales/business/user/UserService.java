@@ -85,7 +85,7 @@ public class UserService implements IUserService {
             }
 
             if (StringUtils.hasLength(password)) {
-                predicates.add(cb.equal(root.<String>get("pwd"), password));
+                predicates.add(cb.equal(root.<String>get("password"), password));
             }
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));

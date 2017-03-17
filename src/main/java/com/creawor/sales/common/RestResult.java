@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResult<T> {
 
-  private boolean result;
+  private int code;
 
   private String message;
 
@@ -21,12 +21,12 @@ public class RestResult<T> {
     return new RestResult<>();
   }
 
-  public boolean isResult() {
-    return result;
+  public int getCode() {
+    return code;
   }
 
-  public void setResult(boolean result) {
-    this.result = result;
+  public void setCode(int code) {
+    this.code = code;
   }
 
   public String getMessage() {
@@ -48,7 +48,7 @@ public class RestResult<T> {
   @Override
   public String toString() {
     return "RestResult{" +
-        "result=" + result +
+        "result=" + code +
         ", message='" + message + '\'' +
         ", data=" + data +
         '}';

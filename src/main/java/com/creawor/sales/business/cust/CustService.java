@@ -1,5 +1,8 @@
-package com.creawor.sales.business.task;
+package com.creawor.sales.business.cust;
 
+import com.creawor.sales.business.task.ITaskService;
+import com.creawor.sales.business.task.TaskRepo;
+import com.creawor.sales.model.Customer;
 import com.creawor.sales.model.SalesTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,13 +16,13 @@ import java.util.List;
  *
  */
 @Service
-public class TaskService implements ITaskService {
+public class CustService implements ICustService {
 
     @Autowired
-    private TaskRepo taskRepo;
+    private CustRepo taskRepo;
 
     @Override
-    public SalesTask save(SalesTask entity) throws Exception {
+    public Customer save(Customer entity) throws Exception {
         return taskRepo.save(entity);
     }
 
@@ -29,27 +32,27 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void delete(SalesTask entity) throws Exception {
+    public void delete(Customer entity) throws Exception {
         taskRepo.delete(entity);
     }
 
     @Override
-    public SalesTask findById(String id) {
+    public Customer findById(String id) {
         return taskRepo.findOne(id);
     }
 
     @Override
-    public SalesTask findBySample(SalesTask sample) {
+    public Customer findBySample(Customer sample) {
         return taskRepo.findOne(sample.getUid());
     }
 
     @Override
-    public List<SalesTask> findAll() {
+    public List<Customer> findAll() {
         return taskRepo.findAll();
     }
 
     @Override
-    public Page<SalesTask> findAll(PageRequest pageRequest) {
+    public Page<Customer> findAll(PageRequest pageRequest) {
         return taskRepo.findAll(pageRequest);
     }
 }
