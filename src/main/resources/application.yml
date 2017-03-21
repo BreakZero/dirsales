@@ -6,7 +6,7 @@ spring:
     driverClassName: com.vertica.jdbc.Driver
 
   jpa:
-    show-sql: false
+    show-sql: true
     generate-ddl: false
     properties:
       hibernate:

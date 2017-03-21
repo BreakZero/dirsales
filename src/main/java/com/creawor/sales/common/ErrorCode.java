@@ -5,23 +5,23 @@ package com.creawor.sales.common;
  * 错误消息
  */
 public enum ErrorCode {
-  ILLEGAL_PARAMS("ILLEGAL_PARAMS", "request params invalid"),
-  SERVER_ERROR("SERVER_ERROR", "server is busy");
+    ILLEGAL_PARAMS("ILLEGAL_PARAMS", "request params invalid"),
+    SERVER_ERROR("SERVER_ERROR", "server is busy");
 
-  ErrorCode(String code, String message) {
-    this.code = code;
-    this.message = message;
-  }
+    ErrorCode(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
-  private String code;
+    private String code;
 
-  private String message;
+    private String message;
 
-  public String getCode() {
-    return code;
-  }
+    public String getCode() {
+        return code;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    public String getMessage() {
+        return message;
+    }
 }

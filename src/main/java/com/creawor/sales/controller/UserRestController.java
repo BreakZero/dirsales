@@ -32,10 +32,21 @@ public class UserRestController {
     public RestResult<TokenInfo> login(@RequestParam String account, @RequestParam String password) {
         User loginUser = userService.findOne(account, password);
         if (loginUser == null) {
-            return RestResultGenerator.genErrorResult("用户不存在！");
+            return RestResultGenerator.genErrorResult("账号或密码错误！");
         } else {
             String token = authenticationService.getToken(loginUser);
             return RestResultGenerator.genSuccessResult(new TokenInfo(token, loginUser));
+        }
+    }
+
+    @PostMapping("refreshToken")
+    public RestResult<String> refresh(@RequestParam String account, @RequestParam String password) {
+        User loginUser = userService.findOne(account, password);
+        if (loginUser == null) {
+            return RestResultGenerator.genErrorResult("账号可能被销毁，请重新登录");
+        } else {
+            String token = authenticationService.getToken(loginUser);
+            return RestResultGenerator.genSuccessResult(token);
         }
     }
 }

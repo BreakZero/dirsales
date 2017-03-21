@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Zero on 2017/3/10.
@@ -35,6 +37,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Map map = request.getParameterMap();
+        Set<String> keySet = map.keySet();
+        for (String key : keySet) {
+            String[] values = (String[]) map.get(key);
+            for (String value : values) {
+                System.out.println("params------>" + key + " = " + value);
+            }
+        }
+
         // 如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -59,7 +70,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             User user = mUserService.findById(userId);
             if (user == null) {
-                throw new RuntimeException("用户不存在，请重新登录");
+                throw new RuntimeException("user is not exits");
             }
             // 验证 token
             try {
