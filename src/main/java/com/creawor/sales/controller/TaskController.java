@@ -8,6 +8,7 @@ import com.creawor.sales.common.RestResult;
 import com.creawor.sales.common.RestResultGenerator;
 import com.creawor.sales.model.SalesTask;
 import com.creawor.sales.model.User;
+import com.creawor.sales.model.vo.TaskDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Zero on 2017/3/10.
@@ -34,15 +38,29 @@ public class TaskController {
 
     @LoginRequired
     @RequestMapping("all")
-    public RestResult<PageInfo<SalesTask>> getTask(@RequestParam("page") int page,
-                                                  @RequestParam("pageSize") int pageSize,
-                                                  @CurrentUser User currUser) {
-        PageInfo<SalesTask> result = new PageInfo<>();
+    public RestResult<PageInfo<TaskDetailVo>> getTask(@RequestParam("page") int page,
+                                                   @RequestParam("pageSize") int pageSize,
+                                                   @CurrentUser User currUser) {
+        PageInfo<TaskDetailVo> result = new PageInfo<>();
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
         Page<SalesTask> pageRows = taskService.findAll(pageRequest);
         result.setCount((int) pageRows.getTotalElements());
-        result.setRows(pageRows.getContent());
+
+        List<SalesTask> rows = pageRows.getContent();
+        List<TaskDetailVo> details = new ArrayList<>();
+        for (SalesTask task : rows) {
+            TaskDetailVo row = new TaskDetailVo();
+            row.setActivityId(task.getTaskDetail().getActivityId());
+            row.setActivityName(task.getTaskDetail().getActivityName());
+            row.setActState(task.getTaskDetail().getActState());
+            row.setMarketTerms(task.getTaskDetail().getMarketTerms());
+            row.setUid(task.getUid());
+            row.setStarNum(task.getTaskDetail().getStarNum());
+            details.add(row);
+        }
+
+        result.setRows(details);
         return RestResultGenerator.genSuccessResult(result);
     }
 }

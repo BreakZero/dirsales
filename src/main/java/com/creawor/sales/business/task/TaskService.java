@@ -1,6 +1,7 @@
 package com.creawor.sales.business.task;
 
 import com.creawor.sales.model.SalesTask;
+import com.creawor.sales.model.vo.TaskDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,4 +53,5 @@ public class TaskService implements ITaskService {
     public Page<SalesTask> findAll(PageRequest pageRequest) {
         return taskRepo.findAll(pageRequest);
     }
+
 }

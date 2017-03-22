@@ -32,8 +32,9 @@ public class SalesTask implements Serializable {
     /**
      * 营销活动编号
      */
-    @Column(name = "ACT_ID")
-    private String activityId;
+    @JoinColumn(name = "ACT_ID")
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+    private SalesTaskDetail taskDetail;
 
     /**
      * 直销责任人工号
@@ -107,12 +108,12 @@ public class SalesTask implements Serializable {
         this.supId = supId;
     }
 
-    public String getActivityId() {
-        return activityId;
+    public SalesTaskDetail getTaskDetail() {
+        return taskDetail;
     }
 
-    public void setActivityId(String activityId) {
-        this.activityId = activityId;
+    public void setTaskDetail(SalesTaskDetail taskDetail) {
+        this.taskDetail = taskDetail;
     }
 
     public String getJobNumber() {
