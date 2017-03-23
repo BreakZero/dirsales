@@ -1,7 +1,6 @@
 package com.creawor.sales.business.cust;
 
 import com.creawor.sales.model.Customer;
-import com.creawor.sales.model.SalesTask;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -39,12 +39,20 @@ public class TaskController {
     @LoginRequired
     @RequestMapping("all")
     public RestResult<PageInfo<TaskDetailVo>> getTask(@RequestParam("page") int page,
-                                                   @RequestParam("pageSize") int pageSize,
-                                                   @CurrentUser User currUser) {
+                                                      @RequestParam("pageSize") int pageSize,
+                                                      @RequestParam("state") String state,
+                                                      @CurrentUser User currUser) {
         PageInfo<TaskDetailVo> result = new PageInfo<>();
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
-        Page<SalesTask> pageRows = taskService.findAll(pageRequest);
+        Page<SalesTask> pageRows;
+
+        if ("0".equals(state)) {
+            pageRows = taskService.findAll(pageRequest);
+        } else {
+            pageRows = taskService.findAll(pageRequest, state);
+        }
+
         result.setCount((int) pageRows.getTotalElements());
 
         List<SalesTask> rows = pageRows.getContent();

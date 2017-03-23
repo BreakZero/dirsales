@@ -1,12 +1,20 @@
 package com.creawor.sales.business.task;
 
 import com.creawor.sales.model.SalesTask;
+import com.creawor.sales.model.SalesTaskDetail;
+import com.creawor.sales.model.User;
 import com.creawor.sales.model.vo.TaskDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +60,22 @@ public class TaskService implements ITaskService {
     @Override
     public Page<SalesTask> findAll(PageRequest pageRequest) {
         return taskRepo.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<SalesTask> findAll(Pageable pageable, String state) {
+        return taskRepo.findAll(whereSpec(state), pageable);
+    }
+
+    private Specification<SalesTask> whereSpec(String state) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Path<String> statePath = root.get("taskDetail").get("actState");
+            if (null != state) {
+                predicates.add(cb.equal(statePath, state));
+            }
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
     }
 
 }

@@ -5,6 +5,8 @@ import com.creawor.sales.model.SalesTask;
 import com.creawor.sales.model.vo.TaskDetailVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -13,5 +15,5 @@ import java.util.List;
  *
  */
 public interface ITaskService extends ICommonService<SalesTask> {
-
+    Page<SalesTask> findAll(Pageable pageable, String state);
 }

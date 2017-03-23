@@ -1,9 +1,6 @@
 package com.creawor.sales.business.cust;
 
-import com.creawor.sales.business.task.ITaskService;
-import com.creawor.sales.business.task.TaskRepo;
 import com.creawor.sales.model.Customer;
-import com.creawor.sales.model.SalesTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
