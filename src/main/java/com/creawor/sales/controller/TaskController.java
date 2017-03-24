@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Zero on 2017/3/10.
  * 任务相关Controller
  */
-@RestController
+@RestController(value = "/api/task")
 @RequestMapping("/api/task")
 public class TaskController {
     @Autowired

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Zero on 2017/3/10.
  * 任务相关Controller
  */
-@RestController
+@RestController(value = "/api/cust")
 @RequestMapping("/api/cust")
 public class CustController {
     @Autowired
@@ -38,11 +38,12 @@ public class CustController {
     @RequestMapping("all")
     public RestResult<PageInfo<Customer>> getTask(@RequestParam("page") int page,
                                                   @RequestParam("pageSize") int pageSize,
+                                                  @RequestParam("executeId") String execId,
                                                   @CurrentUser User currUser) {
         PageInfo<Customer> result = new PageInfo<>();
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
-        Page<Customer> pageRows = custService.findAll(pageRequest);
+        Page<Customer> pageRows = custService.findAll(pageRequest, execId);
         result.setCount((int) pageRows.getTotalElements());
         result.setRows(pageRows.getContent());
         return RestResultGenerator.genSuccessResult(result);

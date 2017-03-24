@@ -1,11 +1,17 @@
 package com.creawor.sales.business.cust;
 
 import com.creawor.sales.model.Customer;
+import com.creawor.sales.model.SalesTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +57,21 @@ public class CustService implements ICustService {
     @Override
     public Page<Customer> findAll(PageRequest pageRequest) {
         return taskRepo.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Customer> findAll(Pageable pageable, String excuId) {
+        return taskRepo.findAll(whereSpec(excuId), pageable);
+    }
+
+    private Specification<Customer> whereSpec(String excuId) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Path<String> statePath = root.get("executeId");
+            if (null != excuId) {
+                predicates.add(cb.equal(statePath, excuId));
+            }
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
     }
 }

@@ -42,7 +42,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         for (String key : keySet) {
             String[] values = (String[]) map.get(key);
             for (String value : values) {
-                System.out.println("params------>" + key + " = " + value);
+                System.out.println("params ======> " + key + " = " + value);
             }
         }
 
