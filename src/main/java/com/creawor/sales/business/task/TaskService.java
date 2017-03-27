@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,12 @@ public class TaskService implements ITaskService {
     @Override
     public Page<SalesTask> findAll(Pageable pageable, String state) {
         return taskRepo.findAll(whereSpec(state), pageable);
+    }
+
+    @Transactional
+    @Override
+    public void signTask(String excuId, String state) {
+        taskRepo.signTask(excuId, state);
     }
 
     private Specification<SalesTask> whereSpec(String state) {

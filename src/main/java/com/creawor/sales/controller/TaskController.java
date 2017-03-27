@@ -71,4 +71,11 @@ public class TaskController {
         result.setRows(details);
         return RestResultGenerator.genSuccessResult(result);
     }
+
+    @RequestMapping("signOrRefuse")
+    public RestResult signOrRefuseTask(@RequestParam("excuId") String excuId,
+                                       @RequestParam("state") String state) {
+        taskService.signTask(excuId, state);
+        return RestResultGenerator.genSuccessResult();
+    }
 }

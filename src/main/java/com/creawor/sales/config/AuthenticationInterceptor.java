@@ -60,7 +60,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             // 执行认证
             String token = request.getHeader("token");  // 从 http 请求头中取出 token
             if (token == null) {
-                throw new RuntimeException("no token, please init it");
+                throw new RuntimeException("没有Token，请先登录");
             }
             String userId;
             try {
