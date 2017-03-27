@@ -73,9 +73,9 @@ public class TaskController {
     }
 
     @RequestMapping("signOrRefuse")
-    public RestResult signOrRefuseTask(@RequestParam("excuId") String excuId,
-                                       @RequestParam("state") String state) {
+    public RestResult<String> signOrRefuseTask(@RequestParam("excuId") String excuId,
+                                               @RequestParam("state") String state) {
         taskService.signTask(excuId, state);
-        return RestResultGenerator.genSuccessResult();
+        return RestResultGenerator.genSuccessResult(state);
     }
 }
