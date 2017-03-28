@@ -64,6 +64,21 @@ public class CustService implements ICustService {
         return taskRepo.findAll(whereSpec(excuId), pageable);
     }
 
+    @Override
+    public int getCount(String excuId) {
+        return taskRepo.getCount(excuId);
+    }
+
+    @Override
+    public int getMarketCount(String excuId) {
+        return taskRepo.getMarketCount(excuId);
+    }
+
+    @Override
+    public int getOrderCount(String excuId) {
+        return taskRepo.getOrderCount(excuId);
+    }
+
     private Specification<Customer> whereSpec(String excuId) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();

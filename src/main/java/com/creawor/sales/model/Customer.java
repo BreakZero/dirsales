@@ -67,7 +67,7 @@ public class Customer {
     private int ifTouch;
 
     /**
-     * 是否订购
+     * 是否订购 0 否， 1 是
      */
     @Column(name = "IF_ORDER")
     private int ifOrder;

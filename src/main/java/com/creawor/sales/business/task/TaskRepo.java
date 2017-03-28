@@ -16,8 +16,10 @@ import org.springframework.data.repository.query.Param;
  */
 public interface TaskRepo extends JpaRepository<SalesTask, String>, JpaSpecificationExecutor<SalesTask> {
     @Modifying
-    @Query("update SalesTaskDetail detail set detail.actState = :state where " +
-            "detail.activityId = (select task.taskDetail.activityId from SalesTask" +
-            " task where task.uid = :excuId)")
-    void signTask(@Param("excuId") String excuId, @Param("state") String state);
+    @Query("update SalesTask task set task.signState = :state where task.uid = :excuId" )
+    void signTask(@Param("excuId") String excuId, @Param("state") int state);
+
+//    @Query("update SalesTaskDetail detail set detail.actState = :state where " +
+//            "detail.activityId = (select task.taskDetail.activityId from SalesTask" +
+//            " task where task.uid = :excuId)")
 }

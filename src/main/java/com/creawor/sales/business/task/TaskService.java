@@ -68,9 +68,14 @@ public class TaskService implements ITaskService {
         return taskRepo.findAll(whereSpec(state), pageable);
     }
 
+    @Override
+    public Page<SalesTask> findSignTask(Pageable pageable, String jobNumber) {
+        return taskRepo.findAll(whereSpecForSign(jobNumber), pageable);
+    }
+
     @Transactional
     @Override
-    public void signTask(String excuId, String state) {
+    public void signTask(String excuId, int state) {
         taskRepo.signTask(excuId, state);
     }
 
@@ -85,4 +90,16 @@ public class TaskService implements ITaskService {
         };
     }
 
+    private Specification<SalesTask> whereSpecForSign(String jobNumber) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Path<String> statePath = root.get("jobNumber");
+            Path<String> signState = root.get("signState");
+            if (null != jobNumber) {
+                predicates.add(cb.equal(statePath, jobNumber));
+            }
+            predicates.add(cb.equal(signState, "2"));
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
+    }
 }

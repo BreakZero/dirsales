@@ -102,7 +102,7 @@ public class User implements Serializable {
    * 工号
    */
   @Column(name = "MANAGER_NUMBER")
-  private String managerNumber;
+  private String jobNumber;
 
 
   public String getPassword() {
@@ -209,11 +209,11 @@ public class User implements Serializable {
     this.accountType = accountType;
   }
 
-  public String getManagerNumber() {
-    return managerNumber;
+  public String getJobNumber() {
+    return jobNumber;
   }
 
-  public void setManagerNumber(String managerNumber) {
-    this.managerNumber = managerNumber;
+  public void setJobNumber(String jobNumber) {
+    this.jobNumber = jobNumber;
   }
 }

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "/api/cust")
 @RequestMapping("/api/cust")
 public class CustController {
+
     @Autowired
     private CustService custService;
 

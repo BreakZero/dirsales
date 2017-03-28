@@ -2,12 +2,14 @@ package com.creawor.sales.controller;
 
 import com.creawor.sales.annotation.CurrentUser;
 import com.creawor.sales.annotation.LoginRequired;
+import com.creawor.sales.business.cust.CustService;
 import com.creawor.sales.business.task.TaskService;
 import com.creawor.sales.common.PageInfo;
 import com.creawor.sales.common.RestResult;
 import com.creawor.sales.common.RestResultGenerator;
 import com.creawor.sales.model.SalesTask;
 import com.creawor.sales.model.User;
+import com.creawor.sales.model.vo.SignTaskVo;
 import com.creawor.sales.model.vo.TaskDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +32,9 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private CustService custService;
 
     @Bean
     public TaskService getTaskService() {
@@ -61,7 +66,7 @@ public class TaskController {
             TaskDetailVo row = new TaskDetailVo();
             row.setActivityId(task.getTaskDetail().getActivityId());
             row.setActivityName(task.getTaskDetail().getActivityName());
-            row.setActState(task.getTaskDetail().getActState());
+            row.setActState(task.getSignState());
             row.setMarketTerms(task.getTaskDetail().getMarketTerms());
             row.setUid(task.getUid());
             row.setStarNum(task.getTaskDetail().getStarNum());
@@ -73,9 +78,34 @@ public class TaskController {
     }
 
     @RequestMapping("signOrRefuse")
-    public RestResult<String> signOrRefuseTask(@RequestParam("excuId") String excuId,
-                                               @RequestParam("state") String state) {
+    public RestResult<Integer> signOrRefuseTask(@RequestParam("excuId") String excuId,
+                                               @RequestParam("state") int state) {
         taskService.signTask(excuId, state);
         return RestResultGenerator.genSuccessResult(state);
+    }
+
+    @LoginRequired
+    @RequestMapping("signTask")
+    public RestResult<PageInfo<SignTaskVo>> getSignTask(@RequestParam("page") int page,
+                                                        @RequestParam("pageSize") int pageSize,
+                                                        @CurrentUser User currUser) {
+        PageInfo<SignTaskVo> result = new PageInfo<>();
+        Sort sort = new Sort(Sort.Direction.DESC, "uid");
+        PageRequest pageRequest = new PageRequest(page, pageSize, sort);
+        Page<SalesTask> pageRows = taskService.findSignTask(pageRequest, currUser.getJobNumber());
+        result.setCount((int) pageRows.getTotalElements());
+
+        List<SalesTask> rows = pageRows.getContent();
+        List<SignTaskVo> data = new ArrayList<>();
+        for (SalesTask task : rows) {
+            SignTaskVo row = new SignTaskVo();
+            row.setTaskName(task.getTaskDetail().getActivityName());
+            row.setTotal(custService.getCount(task.getUid()));
+            row.setMarketCount(custService.getMarketCount(task.getUid()));
+            row.setOrderCount(custService.getOrderCount(task.getUid()));
+            data.add(row);
+        }
+        result.setRows(data);
+        return RestResultGenerator.genSuccessResult(result);
     }
 }

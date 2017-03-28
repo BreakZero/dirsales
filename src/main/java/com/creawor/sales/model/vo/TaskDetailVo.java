@@ -9,7 +9,7 @@ public class TaskDetailVo {
     private String activityId;
     private String activityName;
     private String starNum;
-    private String actState; // 1、未签收  2、已签收 3、已拒签
+    private int actState; // 1、未签收  2、已签收 3、已拒签
     private String marketTerms;
 
     public String getUid() {
@@ -44,11 +44,11 @@ public class TaskDetailVo {
         this.starNum = starNum;
     }
 
-    public String getActState() {
+    public int getActState() {
         return actState;
     }
 
-    public void setActState(String actState) {
+    public void setActState(int actState) {
         this.actState = actState;
     }
 

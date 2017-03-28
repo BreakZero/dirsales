@@ -12,4 +12,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ICustService extends ICommonService<Customer> {
     Page<Customer> findAll(Pageable pageable, String excuId);
+    int getCount(String excuId);
+    int getMarketCount(String excuId);
+    int getOrderCount(String excuId);
 }
