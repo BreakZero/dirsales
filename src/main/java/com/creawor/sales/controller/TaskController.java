@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,7 +80,7 @@ public class TaskController {
 
     @RequestMapping("signOrRefuse")
     public RestResult<Integer> signOrRefuseTask(@RequestParam("excuId") String excuId,
-                                               @RequestParam("state") int state) {
+                                                @RequestParam("state") int state) {
         taskService.signTask(excuId, state);
         return RestResultGenerator.genSuccessResult(state);
     }
@@ -88,11 +89,12 @@ public class TaskController {
     @RequestMapping("signTask")
     public RestResult<PageInfo<SignTaskVo>> getSignTask(@RequestParam("page") int page,
                                                         @RequestParam("pageSize") int pageSize,
+                                                        @RequestParam("taskName") String taskName,
                                                         @CurrentUser User currUser) {
         PageInfo<SignTaskVo> result = new PageInfo<>();
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
-        Page<SalesTask> pageRows = taskService.findSignTask(pageRequest, currUser.getJobNumber());
+        Page<SalesTask> pageRows = taskService.findSignTask(pageRequest, currUser.getJobNumber(), taskName);
         result.setCount((int) pageRows.getTotalElements());
 
         List<SalesTask> rows = pageRows.getContent();

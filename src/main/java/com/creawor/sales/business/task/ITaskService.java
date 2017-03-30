@@ -16,6 +16,6 @@ import java.util.List;
  */
 public interface ITaskService extends ICommonService<SalesTask> {
     Page<SalesTask> findAll(Pageable pageable, String state);
-    Page<SalesTask> findSignTask(Pageable pageable, String jobNumber);
+    Page<SalesTask> findSignTask(Pageable pageable, String jobNumber, String taskName);
     void signTask(String excuId, int state) throws Exception;
 }
