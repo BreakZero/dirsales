@@ -99,7 +99,7 @@ public class TaskService implements ITaskService {
             if (null != jobNumber) {
                 predicates.add(cb.equal(statePath, jobNumber));
             }
-            if (null != taskName) {
+            if (null != taskName && taskName.trim().length() > 0) {
                 predicates.add(cb.like(taskNamePath, "%" + taskName + "%"));
             }
             predicates.add(cb.equal(signState, "2"));
