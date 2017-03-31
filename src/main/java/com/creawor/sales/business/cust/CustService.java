@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by Zero on 2017/3/10.
- *
+ * 客户Service层
  */
 @Service
 public class CustService implements ICustService {

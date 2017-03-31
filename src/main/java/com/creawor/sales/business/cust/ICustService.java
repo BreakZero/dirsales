@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * Created by Zero on 2017/3/10.
- *
+ * 面向接口接口定义
  */
 public interface ICustService extends ICommonService<Customer> {
     Page<Customer> findAll(Pageable pageable, String excuId);

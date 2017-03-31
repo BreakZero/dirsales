@@ -37,10 +37,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Map map = request.getParameterMap();
+        Map<String, String[]> map = request.getParameterMap();
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
-            String[] values = (String[]) map.get(key);
+            String[] values = map.get(key);
             for (String value : values) {
                 System.out.println("params ======> " + key + " = " + value);
             }
@@ -66,11 +66,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             try {
                 userId = JWT.decode(token).getAudience().get(0);  // 获取 token 中的 user id
             } catch (JWTDecodeException e) {
-                throw new RuntimeException("token无效，请重新登录");
+                throw new RuntimeException("Token无效，请重新登录");
             }
             User user = mUserService.findById(userId);
             if (user == null) {
-                throw new RuntimeException("user is not exits");
+                throw new RuntimeException("用户不存在");
             }
             // 验证 token
             try {
@@ -78,7 +78,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 try {
                     verifier.verify(token);
                 } catch (JWTVerificationException e) {
-                    throw new RuntimeException("token无效，请重新登录");
+                    throw new RuntimeException("Token无效，请重新登录");
                 }
             } catch (UnsupportedEncodingException ignore) {}
             request.setAttribute("currentUser", user);

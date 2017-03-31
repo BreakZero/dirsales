@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by Zero on 2017/3/10.
- *
+ * 面向接口接口定义
  */
 public interface ITaskService extends ICommonService<SalesTask> {
     Page<SalesTask> findAll(Pageable pageable, String state);
