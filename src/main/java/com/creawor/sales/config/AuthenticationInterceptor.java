@@ -8,6 +8,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.creawor.sales.annotation.LoginRequired;
 import com.creawor.sales.business.user.UserService;
 import com.creawor.sales.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.HandlerMethod;
@@ -27,6 +29,8 @@ import java.util.Set;
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationInterceptor.class);
+
     @Autowired
     private UserService mUserService;
 
@@ -37,12 +41,16 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        long begin_nao_time = System.currentTimeMillis();
+        request.setAttribute("begin_nao_time", begin_nao_time);
+
         Map<String, String[]> map = request.getParameterMap();
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
             String[] values = map.get(key);
             for (String value : values) {
-                System.out.println("params ======> " + key + " = " + value);
+                System.out.println("params ======》 " + key + " = " + value);
             }
         }
 
@@ -94,6 +102,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        long begin_nao_time = (Long) request.getAttribute("begin_nao_time");
+        long interval = System.currentTimeMillis() - begin_nao_time;
+        String uri = request.getRequestURI();
+        LOGGER.info("URI ===》 " + uri + "\n响应时间 ===》 " + interval + "毫秒");
     }
 }
