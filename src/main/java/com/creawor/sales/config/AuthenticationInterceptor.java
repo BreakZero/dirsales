@@ -45,12 +45,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         long begin_nao_time = System.currentTimeMillis();
         request.setAttribute("begin_nao_time", begin_nao_time);
 
+        String uri = request.getRequestURI();
+        LOGGER.debug("URI ===》 " + uri);
+
         Map<String, String[]> map = request.getParameterMap();
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
             String[] values = map.get(key);
             for (String value : values) {
-                System.out.println("params ======》 " + key + " = " + value);
+                LOGGER.debug("params ======》 " + key + " = " + value);
             }
         }
 
@@ -104,7 +107,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         long begin_nao_time = (Long) request.getAttribute("begin_nao_time");
         long interval = System.currentTimeMillis() - begin_nao_time;
-        String uri = request.getRequestURI();
-        LOGGER.info("URI ===》 " + uri + "\n响应时间 ===》 " + interval + "毫秒");
+        LOGGER.debug("响应时间 ===》 " + interval + "毫秒");
     }
 }
