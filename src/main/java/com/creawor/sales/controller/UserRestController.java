@@ -9,6 +9,7 @@ import com.creawor.sales.model.TokenInfo;
 import com.creawor.sales.model.User;
 import com.creawor.sales.token.AuthenticationService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "/api/user")
 @RequestMapping("/api/user")
 public class UserRestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserRestController.class.getSimpleName());
 
     @Autowired
     private IUserService userService;

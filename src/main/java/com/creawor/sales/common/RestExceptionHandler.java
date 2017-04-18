@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by Jin_ on 2016/11/10.
@@ -28,5 +30,12 @@ public class RestExceptionHandler {
     private <T> RestResult<T> illegalParamsExceptionHandler(MethodArgumentNotValidException e) {
         LOGGER.error("---------> invalid request!", e);
         return RestResultGenerator.genErrorResult(ErrorCode.ILLEGAL_PARAMS);
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public <T> RestResult<T> handleUploadError(MultipartException e) {
+        return RestResultGenerator.genErrorResult(e.getCause().getMessage());
     }
 }

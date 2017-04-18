@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Created by Jin_ on 2016/11/10.
- *
+ * 封装的响应json格式
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResult<T> {

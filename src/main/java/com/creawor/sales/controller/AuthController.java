@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Zero on 2017/3/10.
- *
+ * 用了测试获取token的Controller
  */
 @RestController
 @RequestMapping("/api/authentication")

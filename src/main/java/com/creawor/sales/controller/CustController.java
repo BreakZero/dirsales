@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Zero on 2017/3/10.
- * 任务相关Controller
+ * 营销客户相关Controller
  */
 @RestController(value = "/api/cust")
 @RequestMapping("/api/cust")

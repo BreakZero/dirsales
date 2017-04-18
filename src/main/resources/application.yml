@@ -15,11 +15,20 @@ spring:
         hbm2ddl:
           import_files:
 
-#logging:
-#  level:
-#    org.springframework.web: ERROR
-#    com.creawor.sales: DEBUG
-#  pattern:
-#    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-#  file: F:/Logger/debug_sales.log
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    com.creawor.sales: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: F:/Logger/debug_sales.log
+
+sales:
+  files:
+    folder: F:/Logger

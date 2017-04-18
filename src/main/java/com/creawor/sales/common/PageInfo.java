@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by Zero on 2017/3/10.
- *
+ * 分页查询的封装响应结果
  */
 public class PageInfo<T> {
     private int count;
