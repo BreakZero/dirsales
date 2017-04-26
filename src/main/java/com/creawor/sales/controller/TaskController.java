@@ -67,7 +67,7 @@ public class TaskController {
             TaskDetailVo row = new TaskDetailVo();
             row.setActivityId(task.getTaskDetail().getActivityId());
             row.setActivityName(task.getTaskDetail().getActivityName());
-            row.setActState(task.getSignState());
+            row.setSignState(task.getSignState());
             row.setMarketTerms(task.getTaskDetail().getMarketTerms());
             row.setUid(task.getUid());
             row.setStarNum(task.getTaskDetail().getStarNum());

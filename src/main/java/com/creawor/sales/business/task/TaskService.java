@@ -83,7 +83,7 @@ public class TaskService implements ITaskService {
     private Specification<SalesTask> whereSpec(String state) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-            Path<String> statePath = root.get("taskDetail").get("actState");
+            Path<String> statePath = root.get("signState");
             if (null != state) {
                 predicates.add(cb.equal(statePath, state));
             }
