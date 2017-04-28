@@ -3,11 +3,13 @@ package com.creawor.sales.controller;
 import com.creawor.sales.annotation.CurrentUser;
 import com.creawor.sales.annotation.LoginRequired;
 import com.creawor.sales.business.cust.CustService;
+import com.creawor.sales.business.rank.TaskRankService;
 import com.creawor.sales.business.task.TaskService;
 import com.creawor.sales.common.PageInfo;
 import com.creawor.sales.common.RestResult;
 import com.creawor.sales.common.RestResultGenerator;
 import com.creawor.sales.model.SalesTask;
+import com.creawor.sales.model.TaskRankInfo;
 import com.creawor.sales.model.User;
 import com.creawor.sales.model.vo.SignTaskVo;
 import com.creawor.sales.model.vo.TaskDetailVo;
@@ -36,6 +38,14 @@ public class TaskController {
 
     @Autowired
     private CustService custService;
+
+    @Autowired
+    private TaskRankService taskRankService;
+
+    @Bean
+    public TaskRankService getTaskRankService() {
+        return new TaskRankService();
+    }
 
     @Bean
     public TaskService getTaskService() {
@@ -68,6 +78,7 @@ public class TaskController {
             row.setActivityId(task.getTaskDetail().getActivityId());
             row.setActivityName(task.getTaskDetail().getActivityName());
             row.setSignState(task.getSignState());
+            row.setPhoneNum(task.getJobNumber());
             row.setMarketTerms(task.getTaskDetail().getMarketTerms());
             row.setUid(task.getUid());
             row.setStarNum(task.getTaskDetail().getStarNum());
@@ -109,5 +120,13 @@ public class TaskController {
         }
         result.setRows(data);
         return RestResultGenerator.genSuccessResult(result);
+    }
+
+    @RequestMapping("getRank")
+    public RestResult<TaskRankInfo> getTaskRank(@RequestParam("phone") String phone,
+                                                @RequestParam("actId") String actId) {
+        TaskRankInfo info = taskRankService.findOne(phone, actId);
+        return null == info ? RestResultGenerator.genErrorResult("找不到任务排行信息")
+                : RestResultGenerator.genSuccessResult(info);
     }
 }

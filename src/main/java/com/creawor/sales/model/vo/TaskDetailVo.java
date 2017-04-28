@@ -8,6 +8,7 @@ public class TaskDetailVo {
     private String uid;
     private String activityId;
     private String activityName;
+    private String phoneNum;
     private String starNum;
     private int signState; // 1、未签收  2、已签收 3、已拒签
     private String marketTerms;
@@ -34,6 +35,14 @@ public class TaskDetailVo {
 
     public void setActivityName(String activityName) {
         this.activityName = activityName;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getStarNum() {

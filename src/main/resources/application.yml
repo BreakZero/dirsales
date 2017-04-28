@@ -1,4 +1,5 @@
 spring:
+  # 数据库配置
   datasource:
     url: jdbc:vertica://219.131.193.214:5433/vertica
     username: dbadmin
@@ -29,6 +30,7 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: F:/Logger/debug_sales.log
 
+# 上传文件保存路径配置
 sales:
   files:
     folder: F:/Logger
