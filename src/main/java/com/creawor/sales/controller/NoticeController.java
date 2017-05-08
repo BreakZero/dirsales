@@ -50,6 +50,7 @@ public class NoticeController {
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
         Page<NoticeInfo> pageRows = mNoticeService.findAll(pageRequest, type);
+
         result.setCount((int) pageRows.getTotalElements());
         result.setRows(pageRows.getContent());
         return RestResultGenerator.genSuccessResult(result);

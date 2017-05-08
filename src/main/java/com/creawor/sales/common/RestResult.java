@@ -9,48 +9,49 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResult<T> {
 
-  private int code;
+    private int code;
 
-  private String message;
+    private String message;
 
-  private T data;
+    private T data;
 
-  private RestResult() {}
+    private RestResult() {
+    }
 
-  public static <T> RestResult<T> newInstance() {
-    return new RestResult<>();
-  }
+    public static <T> RestResult<T> newInstance() {
+        return new RestResult<>();
+    }
 
-  public int getCode() {
-    return code;
-  }
+    public int getCode() {
+        return code;
+    }
 
-  public void setCode(int code) {
-    this.code = code;
-  }
+    public void setCode(int code) {
+        this.code = code;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    public String getMessage() {
+        return message;
+    }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  public T getData() {
-    return data;
-  }
+    public T getData() {
+        return data;
+    }
 
-  public void setData(T data) {
-    this.data = data;
-  }
+    public void setData(T data) {
+        this.data = data;
+    }
 
-  @Override
-  public String toString() {
-    return "RestResult{" +
-        "result=" + code +
-        ", message='" + message + '\'' +
-        ", data=" + data +
-        '}';
-  }
+    @Override
+    public String toString() {
+        return "RestResult{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

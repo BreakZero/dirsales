@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class CustController {
     }
 
     @LoginRequired
-    @RequestMapping("all")
+    @RequestMapping(value = "all", method = RequestMethod.POST)
     public RestResult<PageInfo<Customer>> getTask(@RequestParam("page") int page,
                                                   @RequestParam("pageSize") int pageSize,
                                                   @RequestParam("executeId") String execId,
@@ -45,6 +46,7 @@ public class CustController {
         Sort sort = new Sort(Sort.Direction.DESC, "uid");
         PageRequest pageRequest = new PageRequest(page, pageSize, sort);
         Page<Customer> pageRows = custService.findAll(pageRequest, execId);
+
         result.setCount((int) pageRows.getTotalElements());
         result.setRows(pageRows.getContent());
         return RestResultGenerator.genSuccessResult(result);

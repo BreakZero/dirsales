@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
  * Gen RestResult
  */
 public class RestResultGenerator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestResultGenerator.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(RestResultGenerator.class.getSimpleName());
 
     /**
      * normal

@@ -29,6 +29,7 @@ public class FileController {
 
     /**
      * 单文件上传
+     *
      * @param file 文件
      * @return 响应Json
      */
@@ -48,7 +49,7 @@ public class FileController {
         return RestResultGenerator.genSuccessResult();
     }
 
-    @RequestMapping(value = "uploads", method = RequestMethod.POST)
+    @PostMapping(value = "uploads")
     @ResponseBody
     public RestResult multipleFileUpload(@RequestParam("file") MultipartFile[] files) {
         if (null == files || 0 == files.length) {

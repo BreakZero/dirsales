@@ -25,7 +25,6 @@ import java.util.Set;
 
 /**
  * Created by Zero on 2017/3/10.
- *
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
@@ -85,13 +84,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             // 验证 token
             try {
-                JWTVerifier verifier =  JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
                 try {
                     verifier.verify(token);
                 } catch (JWTVerificationException e) {
                     throw new RuntimeException("Token无效，请重新登录");
                 }
-            } catch (UnsupportedEncodingException ignore) {}
+            } catch (UnsupportedEncodingException ignore) {
+            }
             request.setAttribute("currentUser", user);
             return true;
         }
