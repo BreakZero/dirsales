@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,5 +66,49 @@ public class FileController {
             e.printStackTrace();
         }
         return RestResultGenerator.genSuccessResult();
+    }
+
+    /**
+     * 下载文件
+     * @param response 响应
+     * @param filePath 文件路径
+     */
+    @GetMapping("download")
+    public void downloadFile(HttpServletResponse response,
+                                   @RequestParam("filePath") String filePath) {
+        try {
+            File file = new File(filePath);
+//            String[] fp = filePath.split("\\\\");
+//            String fileName = fp[fp.length - 1];// 文件名称
+            String fileName = file.getName();
+            LOGGER.debug("-------------------------------下载文件名为=" + fileName);
+
+            //下载机器码文件
+            response.setHeader("content-type", "application/octet-stream");
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment; filename=" +
+                    new String(fileName.getBytes("ISO-8859-1"), "UTF-8"));
+
+            OutputStream os = response.getOutputStream();
+            BufferedOutputStream bos = new BufferedOutputStream(os);
+
+            InputStream is = null;
+
+            is = new FileInputStream(filePath);
+            BufferedInputStream bis = new BufferedInputStream(is);
+
+            int length = 0;
+            byte[] temp = new byte[1 * 1024 * 10];
+
+            while ((length = bis.read(temp)) != -1) {
+                bos.write(temp, 0, length);
+            }
+            bos.flush();
+            bis.close();
+            bos.close();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

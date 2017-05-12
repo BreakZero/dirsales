@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * Created by Zero on 2017/3/10.
  * 通知信息Dao层
  */
-interface NoticeTypeRepo extends JpaRepository<NoticeType, String>, JpaSpecificationExecutor<NoticeType> {
+public interface NoticeTypeRepo extends JpaRepository<NoticeType, String>, JpaSpecificationExecutor<NoticeType> {
 
 }

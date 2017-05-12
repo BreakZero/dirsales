@@ -8,4 +8,5 @@ import com.creawor.sales.model.NoticeType;
  * 通知类别
  */
 public interface INoticeTypeService extends ICommonService<NoticeType> {
+
 }

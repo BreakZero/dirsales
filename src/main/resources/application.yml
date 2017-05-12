@@ -7,7 +7,7 @@ spring:
     driverClassName: com.vertica.jdbc.Driver
 
   jpa:
-    show-sql: false
+    show-sql: true
     generate-ddl: false
     properties:
       hibernate:
@@ -25,7 +25,7 @@ logging:
   level:
     org.springframework.web: ERROR
     com.creawor.sales: DEBUG
-    org.hibernate.SQL: DEBUG
+    # org.hibernate.SQL: DEBUG
     # org.hibernate.type.descriptor.sql: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n"
